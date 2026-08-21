@@ -1,0 +1,24 @@
+services:
+  # Runs the training pipeline once and writes models/ + reports/ to the
+  # host via volumes. Not part of the default `docker compose up` (kept out
+  # via `profiles`) -- run explicitly: `docker compose up train`.
+  train:
+    build:
+      context: .
+      dockerfile: Dockerfile.train
+    volumes:
+      - ./models:/app/models
+      - ./reports:/app/reports
+    profiles: ["train"]
+
+  # Serves the dashboard against whatever's already in models/ + reports/
+  # (run the `train` service first if those are empty).
+  dashboard:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./models:/app/models:ro
+      - ./reports:/app/reports:ro

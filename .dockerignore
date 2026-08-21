@@ -1,8 +1,11 @@
 .git
 .github
+.claude/
 notebooks/
 tests/
 assets/
+models/
+reports/
 *.md
 .venv/
 venv/

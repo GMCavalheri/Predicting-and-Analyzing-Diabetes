@@ -5,7 +5,13 @@ from __future__ import annotations
 import os
 from pathlib import Path
 
-ROOT_DIR = Path(__file__).resolve().parents[2]
+# Deriving this from __file__ would break under a real (non-editable)
+# install -- e.g. in Docker, `pip install .` puts this file under
+# site-packages/, nowhere near the repo. Every entrypoint (train.py,
+# dashboard/app.py, pytest, the Docker WORKDIR) is run from the repo root,
+# so that's the reliable anchor instead; PROJECT_ROOT overrides it directly
+# if that assumption ever doesn't hold.
+ROOT_DIR = Path(os.environ.get("PROJECT_ROOT") or Path.cwd())
 
 DATA_PATH = Path(os.environ.get("DATA_PATH") or ROOT_DIR / "data" / "raw" / "diabetes_dataset.csv")
 MODEL_DIR = Path(os.environ.get("MODEL_DIR") or ROOT_DIR / "models")
