@@ -94,7 +94,9 @@ def save_confusion_matrix_plot(y_test: pd.Series, y_pred, path: Path, title: str
     plt.close(fig)
 
 
-def save_roc_curve_plot(pipeline, X_test: pd.DataFrame, y_test: pd.Series, path: Path, title: str) -> None:
+def save_roc_curve_plot(
+    pipeline, X_test: pd.DataFrame, y_test: pd.Series, path: Path, title: str
+) -> None:
     fig, ax = plt.subplots(figsize=(5, 4))
     RocCurveDisplay.from_estimator(pipeline, X_test, y_test, ax=ax)
     ax.set_title(title)
