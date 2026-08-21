@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "diabetes-prediction"
+version = "1.0.0"
+description = "Predicting diabetes diagnosis from patient health and lifestyle data, with an honest look at data leakage."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "Gabriel Cavalheri" }]
+dependencies = [
+    "pandas>=2.2,<3",
+    "scikit-learn>=1.5,<2",
+    "joblib>=1.4,<2",
+    "matplotlib>=3.9,<4",
+    "streamlit>=1.38,<2",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.3,<9",
+    "ruff>=0.6,<1",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]
